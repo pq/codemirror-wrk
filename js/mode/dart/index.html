@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CodeMirror 2: Dart mode</title>
+    <link rel="stylesheet" href="../../lib/codemirror.css">
+    <link rel="stylesheet" href="dart.css">
+    <script src="../../lib/codemirror.js"></script>
+    <script src="dart.js"></script>
+    <link rel="stylesheet" href="../../doc/docs.css">
+    <style>
+        body
+        {
+          margin: 0;
+          padding: 0;
+          max-width:inherit;
+          height: 100%;
+        }
+        html, form, .CodeMirror, .CodeMirror-scroll
+        {
+          height: 100%;        
+        }
+    </style>
+  </head>
+  <body>
+    <!--h1>CodeMirror 2: Dart mode</h1-->
+
+<div><textarea id="code" name="code">
+// Copyright (c) 2012, the Dart project authors.
+
+#library('slider_sample');
+
+#import('dart:html');
+#import('../ui_lib/view/view.dart');
+
+final menuItems = const["Apple", "Banana", "Cherry", "Durian"];
+
+main() {
+  var sliderMenu = new SliderMenu(menuItems, (selectedText) {
+    displaySelection(selectedText);
+  });
+  query("#menu").nodes.add(sliderMenu.node);
+
+  query('#next').on.click.add((e) {
+    sliderMenu.selectNext(true);
+  });
+
+  query('#prev').on.click.add((e) {
+    sliderMenu.selectPrevious(true);
+  });
+
+  document.on.keyDown.add((KeyboardEvent event) {
+    switch (event.keyIdentifier) {
+      case KeyName.LEFT:
+        sliderMenu.selectPrevious(true);
+        break;
+      case KeyName.RIGHT:
+        sliderMenu.selectNext(true);
+        break;
+    }
+  });
+  
+  sliderMenu.enterDocument();
+}
+
+void displaySelection(String selectedText) {
+  query("#notes").text = "Selection: ${selectedText}";  
+}
+</textarea></div>
+
+    <script>
+      var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true,
+        matchBrackets: true,
+        theme: "dart",
+        mode: "text/dart"
+      });
+    </script>
+
+    <!--p><strong>MIME types defined:</strong> <code>text/dart</code>.</p-->
+  </body>
+</html>

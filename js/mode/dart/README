@@ -1,0 +1,14 @@
+A codemirror mode for dart, designed against Codemirror-2.18 (and updated to 
+work against 2.3.0).
+
+The relative paths in this mode expect it to exist in a typical codemirror
+source tree, which is to say:
+
+codemirror/
+  css/
+  lib/
+  mode/ <--- HERE
+  theme/
+  ...
+
+Tests can be found in the tests/ dir.

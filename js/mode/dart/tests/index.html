@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Dart Mode Tests</title>
+    <!-- codemirror core lib -->
+    <script src="../../../lib/codemirror.js"></script>
+    <link rel="stylesheet" href="../../../lib/codemirror.css">
+    <link rel="stylesheet" href="../../../doc/docs.css">
+    <link rel="stylesheet" href="../../../theme/default.css">
+    <!-- test scaffolding -->
+    <script src="fixture/scaffolding.js"></script>
+    <link rel="stylesheet" href="fixture/scaffolding.css">
+  </head>
+
+  <body>
+    <h1>Dart Mode Tests</h1>
+
+    <p>Dart mode sanity tests.</p>
+
+    <pre id=output class="cm-s-default"></pre>
+
+    <div style="visibility: hidden" id=testground>
+      <form><textarea id="code" name="code"></textarea><input type=submit value=ok name=submit></form>
+    </div>
+
+    <!-- the mode under test -->
+    <script src="../dart.js"></script>
+
+    <!-- the tests -->
+    <script src="dartmode_test.js"></script>
+
+  </body>
+</html>

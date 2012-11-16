@@ -1,0 +1,39 @@
+/* Copyright (c) 2012, the Dart project authors.  Please see the AUTHORS file
+ * for details. All rights reserved. Use of this source code is governed by a
+ * BSD-style license that can be found in the LICENSE file.
+ */
+
+.cm-s-dart {
+	/*font-family: Monaco, Menlo,"Andale Mono","lucida console","Courier New",monospace !important;*/
+	background: #272822;
+	color: #f8f8f2;
+}
+.cm-s-dart div.CodeMirror-selected {background: #49483E !important;}
+.cm-s-dart .CodeMirror-gutter {background: #272822; border-right: 0px;}
+.cm-s-dart .CodeMirror-gutter-text {color: #d0d0d0;}
+.cm-s-dart .CodeMirror-cursor {border-left: 1px solid #f8f8f0 !important;}
+
+.cm-s-dart span.cm-comment {color: #75715e; font-style:italic;} /* GRAY */
+.cm-s-dart span.cm-atom {color: #9370db;} /* LT. PURPLE */
+
+.cm-s-dart span.cm-number {color: #ae81ff;}
+
+.cm-s-dart span.cm-property, .cm-s-dart span.cm-attribute {color: #a6e22e;}
+.cm-s-dart span.cm-keyword {color: #4169e1;} /* BLUE */
+
+
+.cm-s-dart span.cm-string {color: #e6db74;} /* YELLOW */
+.cm-s-dart span.cm-string-2 {color: #fd9720;} /* ORANGE */
+
+.cm-s-dart span.cm-variable {color: #ffffff;} /* WHITE */
+.cm-s-dart span.cm-variable-2 {color: #9effff;} /* LT. BLUE */
+.cm-s-dart span.cm-def {color: #fd971f;} /* ORANGE */
+.cm-s-dart span.cm-error {background: #f92672; color: #f8f8f0;}
+.cm-s-dart span.cm-bracket {color: #f8f8f2;}
+.cm-s-dart span.cm-tag {color: #a9a9a9;} /* LT. GRAY */
+.cm-s-dart span.cm-link {color: #ae81ff;}
+
+.cm-s-dart .CodeMirror-matchingbracket {
+  text-decoration: underline;
+  color: white !important;
+}

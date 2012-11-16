@@ -1,0 +1,4 @@
+name: codemirror
+dependencies:	
+  unittest:
+    sdk: unittest
