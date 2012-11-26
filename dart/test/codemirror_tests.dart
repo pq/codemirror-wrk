@@ -3,8 +3,7 @@
 library codemirror_tests;
 
 import 'package:unittest/unittest.dart';
-//import 'package:unittest/html_config.dart';
-import 'package:unittest/vm_config.dart';
+import 'package:unittest/html_config.dart';
 
 import '../lib/codemirror.dart';
 import '../mode/diff/diff.dart';
@@ -17,8 +16,7 @@ class NoOpState extends State {
 
 void main() {
 
- //useHtmlConfiguration();
- useVmConfiguration();
+ useHtmlConfiguration();
 
  test('StringStream_basic', () {
    String text = 'text';

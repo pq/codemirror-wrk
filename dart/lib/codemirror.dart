@@ -2,9 +2,42 @@
 
 library codemirror;
 
+import 'dart:html';
 import 'dart:math';
 
+part 'document.dart';
 part 'line.dart';
+
+/** The CodeMirror editor. */
+class CodeMirror {
+  
+  //for now we make a simplifying assumption that all editors will attach to a text area
+  Element _textArea;
+  
+  Element getTextArea() => _textArea;
+  
+  static CodeMirror fromTextArea(Element textArea, [options]) {
+    
+    //apply options
+    //...
+    
+    //hack to make form submits do the right thing
+    //...
+    
+    
+  }
+  
+  CodeMirror(Element _textArea);
+  
+  String getValue([String lineSep='\n']) {
+    var text = [];
+    //doc.iter(0, doc.size, function(line) { text.push(line.text); });
+    //return text.join(lineSep);
+    return Strings.join(text, lineSep);
+  }
+  
+  
+}
 
 /** The character stream used by a [Mode]'s parser. */
 class StringStream {

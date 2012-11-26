@@ -20,7 +20,7 @@ class Line {
   State stateAfter;
   GutterMarker _gutterMarker;
   String _className;
-
+  
   Line(this._text, List<String> styles): _marked = [] {
     if (styles == null || styles.isEmpty) {
       this.styles = [_text, null];
