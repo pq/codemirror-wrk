@@ -45,6 +45,10 @@ class Line {
   /**
    * Run the given [Mode]'s parser over a line, update the styles
    * list, which contains alternating fragments of text and CSS classes.
+   * 
+   * Short lines with simple highlights return [null], and are counted as changed
+   * by the driver because they are likely to highlight the same way in various contexts.
+   * 
    */
   bool highlight(Mode mode, State state, [int tabSize]) {
     var stream = new StringStream(_text, tabSize);
@@ -78,13 +82,13 @@ class Line {
     }
     if (st.length != pos) {
       st.length = pos;
-      changed = true;
+      return true;
     }
-    if ((pos > 0) && st[pos-2] != prevWord) changed = true;
-    // Short lines with simple highlights return null, and are
-    // counted as changed by the driver because they are likely to
-    // highlight the same way in various contexts.
-    return changed || (st.length < 5 && _text.length < 10 ? null : false);
+    if ((pos > 0) && st[pos-2] != prevWord) {
+      return true;
+    }
+    // Short lines with simple highlights return null
+    return (st.length < 5 && _text.length < 10) ? null : false;
   }
 
   /** Replace a piece of a line, keeping the styles around it intact. */

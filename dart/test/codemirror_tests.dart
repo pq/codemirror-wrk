@@ -72,10 +72,7 @@ void main() {
    expect(apply("+Text.", diff()), orderedEquals(["+Text.", "plus"]));
    expect(apply("-Text.", diff()), orderedEquals(["-Text.", "minus"]));
    expect(apply("@Text.", diff()), orderedEquals(["@Text.", "rangeinfo"]));
-   expect(apply("Text.", diff()), orderedEquals(["Text."]));
-//   expectText("-Text.").styledWith(diff()).yields(["-Text.", "minus"]);
-//   expectText("@Text.").styledWith(diff()).yields(["@Text.", "rangeinfo"]);
-//   expectText("Text.").styledWith(diff()).yields(["Text.", null]);
+   expect(apply("Text.", diff()), orderedEquals(["Text.", null]));
  });
 
  test('countColumn', () {
