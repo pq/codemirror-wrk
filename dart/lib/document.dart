@@ -1,20 +1,29 @@
 part of codemirror;
 
-class LeafChunk {
-  
-  List<Line> _lines;
-  var _parent;
-  
-  LeafChunk(this._lines) {
-//  for (var i = 0, e = lines.length, height = 0; i < e; ++i) {
-//    lines[i].parent = this;
-//    height += lines[i].height;
-//  }
-//  this.height = height;
+
+abstract class Chunk {
+
+  int height = 0;
+  var parent;
+
+  bool iterN(int at, int n, bool op(Line line));
+
+}
+
+
+class LeafChunk extends Chunk {
+
+  List<Line> lines;
+
+  LeafChunk(this.lines) {
+    for (var i = 0, e = lines.length, height = 0; i < e; ++i) {
+      lines[i].parent = this;
+      height += lines[i].height;
+    }
   }
-  
-  int chunkSize() => _lines.length;
-  
+
+  int chunkSize() => lines.length;
+
 //  remove: function(at, n, callbacks) {
 //    for (var i = at, e = at + n; i < e; ++i) {
 //      var line = this.lines[i];
@@ -33,37 +42,36 @@ class LeafChunk {
 //    this.lines = this.lines.slice(0, at).concat(lines).concat(this.lines.slice(at));
 //    for (var i = 0, e = lines.length; i < e; ++i) lines[i].parent = this;
 //  },
-//  iterN: function(at, n, op) {
-//    for (var e = at + n; at < e; ++at)
-//      if (op(this.lines[at])) return true;
-//  }
-  
-  
+
+  bool iterN(int at, int n, bool op(Line line)) {
+    for (var e = at + n; at < e; ++at) {
+      if (op(lines[at])) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 }
 
-class BranchChunk {
-  
-  List/*Branch or Leaf?*/ _children;
-  var _parent;
+class BranchChunk extends Chunk {
 
-  int _size;
-  int _height;
-  
-  BranchChunk(this._children) {
+  List<LeafChunk>/*Chunk or Leaf?*/ children;
+
+  int size = 0;
+
+  BranchChunk(this.children) {
     var size = 0, height = 0;
-//    for (var i = 0, e = children.length; i < e; ++i) {
-//      var ch = children[i];
-//      size += ch.chunkSize(); height += ch._height;
-//      ch.parent = this;
-//    }
-    _size = size;
-    _height = height;
-    _parent = null;
+    for (var i = 0, e = children.length; i < e; ++i) {
+      var ch = children[i];
+      size += ch.chunkSize(); height += ch.height;
+      ch.parent = this;
+    }
+    parent = null;
   }
-  
-  int chunkSize() => _size;
-  
+
+  int chunkSize() => size;
+
 //    remove: function(at, n, callbacks) {
 //      this.size -= n;
 //      for (var i = 0; i < this.children.length; ++i) {
@@ -135,17 +143,24 @@ class BranchChunk {
 //      } while (me.children.length > 10);
 //      me.parent.maybeSpill();
 //    },
-//    iter: function(from, to, op) { this.iterN(from, to - from, op); },
-//    iterN: function(at, n, op) {
-//      for (var i = 0, e = this.children.length; i < e; ++i) {
-//        var child = this.children[i], sz = child.chunkSize();
-//        if (at < sz) {
-//          var used = Math.min(n, sz - at);
-//          if (child.iterN(at, used, op)) return true;
-//          if ((n -= used) == 0) break;
-//          at = 0;
-//        } else at -= sz;
-//      }
-//    }
-  
+
+    iter(int from, int to, bool op(Line line)) {
+      iterN(from, to - from, op);
+    }
+
+    bool iterN(int at, int n, bool op(Line line)) {
+      for (var i = 0, e = children.length; i < e; ++i) {
+        var child = children[i], sz = child.chunkSize();
+        if (at < sz) {
+          var used = min(n, sz - at);
+          if (child.iterN(at, used, op)) return true;
+          if ((n -= used) == 0) break;
+          at = 0;
+        } else {
+          at -= sz;
+        }
+      }
+      return false;
+    }
+
 }

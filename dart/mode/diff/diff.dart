@@ -4,6 +4,7 @@ library diff_mode;
 
 import '../../lib/codemirror.dart';
 
+import 'dart:core' hide Options;
 import 'dart:html';
 
 /** A [Mode] for diff. */
@@ -20,8 +21,12 @@ class DiffMode extends Mode {
 
 //TODO move the editor hook up into an HTML script tag
 void main() {
-  var code = query("#code").text;
-  query("#code").text = '${code} !!!!'; 
+
   //var editor = CodeMirror.fromTextArea(document.getElementById("code"), {});
-  var editor = CodeMirror.fromTextArea(query("#code"));
+  var options = new Options();
+  options.mode = new DiffMode();
+  options.value = query("#code").text;
+
+  var editor = new CodeMirror.fromTextArea(query("#code"), options);
+
 }
